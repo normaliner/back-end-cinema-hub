@@ -2,6 +2,6 @@
 	"trailingComma": "none",
 	"singleQuote": true,
 	"useTabs": true,
-	"semi": false,
+	"semi": true,
 	"arrowParens": "avoid"
 }
