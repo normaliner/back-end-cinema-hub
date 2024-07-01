@@ -13,6 +13,7 @@ exports.UserService = void 0;
 const common_1 = require("@nestjs/common");
 const argon2_1 = require("argon2");
 const prisma_service_1 = require("../prisma.service");
+const return_user_object_1 = require("./return-user.object");
 let UserService = class UserService {
     constructor(prisma) {
         this.prisma = prisma;
@@ -45,6 +46,63 @@ let UserService = class UserService {
         };
         return this.prisma.user.create({
             data: user
+        });
+    }
+    async toggleFavoutite(movieId, userId) {
+        const user = await this.getById(userId);
+        const isExists = user.favourites.some(movie => movie.id === movieId);
+        await this.prisma.user.update({
+            where: { id: userId },
+            data: {
+                favourites: {
+                    set: isExists
+                        ? user.favourites.filter(movie => movieId === movie.id)
+                        : [...user.favourites, { id: movieId }]
+                }
+            }
+        });
+    }
+    async getAll(searchTerm) {
+        if (searchTerm)
+            this.search(searchTerm);
+        return this.prisma.user.findMany({
+            select: return_user_object_1.returnUserObject,
+            orderBy: {
+                createdAt: 'desc'
+            }
+        });
+    }
+    async search(searchTerm) {
+        return this.prisma.user.findMany({
+            where: {
+                OR: [
+                    {
+                        name: {
+                            contains: searchTerm,
+                            mode: 'insensitive'
+                        },
+                        email: {
+                            contains: searchTerm,
+                            mode: 'insensitive'
+                        }
+                    }
+                ]
+            }
+        });
+    }
+    async update(id, dto) {
+        return this.prisma.user.update({
+            where: {
+                id
+            },
+            data: dto
+        });
+    }
+    async delete(id) {
+        return this.prisma.user.delete({
+            where: {
+                id
+            }
         });
     }
 };

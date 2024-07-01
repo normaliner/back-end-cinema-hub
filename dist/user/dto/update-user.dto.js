@@ -9,24 +9,27 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.AuthDto = void 0;
+exports.UpdateUserDto = void 0;
+const client_1 = require("@prisma/client");
 const class_validator_1 = require("class-validator");
-class AuthDto {
+class UpdateUserDto {
 }
-exports.AuthDto = AuthDto;
+exports.UpdateUserDto = UpdateUserDto;
 __decorate([
-    (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
-], AuthDto.prototype, "name", void 0);
+], UpdateUserDto.prototype, "name", void 0);
 __decorate([
-    (0, class_validator_1.IsString)(),
     (0, class_validator_1.IsEmail)(),
     __metadata("design:type", String)
-], AuthDto.prototype, "email", void 0);
+], UpdateUserDto.prototype, "email", void 0);
 __decorate([
     (0, class_validator_1.MinLength)(6, { message: 'Пароль должен содержать не менее 6 символов!' }),
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
-], AuthDto.prototype, "password", void 0);
-//# sourceMappingURL=auth.dto.js.map
+], UpdateUserDto.prototype, "password", void 0);
+__decorate([
+    (0, class_validator_1.IsEnum)(client_1.UserRole),
+    __metadata("design:type", String)
+], UpdateUserDto.prototype, "role", void 0);
+//# sourceMappingURL=update-user.dto.js.map
