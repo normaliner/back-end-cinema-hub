@@ -1,5 +1,5 @@
 import { UserRole } from '@prisma/client';
-import { IsEmail, IsEnum, IsString, MinLength } from 'class-validator';
+import { IsEmail, IsEnum, IsString } from 'class-validator';
 
 export class UpdateUserDto {
 	@IsString()
@@ -7,10 +7,6 @@ export class UpdateUserDto {
 
 	@IsEmail()
 	email: string;
-
-	@MinLength(6, { message: 'Пароль должен содержать не менее 6 символов!' })
-	@IsString()
-	password: string;
 
 	@IsEnum(UserRole)
 	role: UserRole;

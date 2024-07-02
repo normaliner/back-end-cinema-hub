@@ -16,6 +16,7 @@ exports.UserController = void 0;
 const common_1 = require("@nestjs/common");
 const auth_decorator_1 = require("../auth/decorators/auth.decorator");
 const user_decorator_1 = require("./decorators/user.decorator");
+const update_user_dto_1 = require("./dto/update-user.dto");
 const user_service_1 = require("./user.service");
 let UserController = class UserController {
     constructor(userService) {
@@ -32,6 +33,12 @@ let UserController = class UserController {
     }
     async getById(id) {
         return this.userService.getById(id);
+    }
+    async update(id, dto) {
+        const updateUser = await this.userService.update(id, dto);
+        if (!updateUser)
+            throw new common_1.NotFoundException('Пользователь не найден');
+        return updateUser;
     }
     async delete(id) {
         const deleteUser = await this.userService.delete(id);
@@ -75,6 +82,16 @@ __decorate([
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "getById", null);
+__decorate([
+    (0, common_1.UsePipes)(new common_1.ValidationPipe()),
+    (0, common_1.Put)(':id'),
+    (0, auth_decorator_1.Auth)('admin'),
+    __param(0, (0, common_1.Param)('id')),
+    __param(1, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, update_user_dto_1.UpdateUserDto]),
+    __metadata("design:returntype", Promise)
+], UserController.prototype, "update", null);
 __decorate([
     (0, common_1.Delete)(':id'),
     (0, auth_decorator_1.Auth)('admin'),

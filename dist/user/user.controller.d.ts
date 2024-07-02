@@ -1,3 +1,4 @@
+import { UpdateUserDto } from './dto/update-user.dto';
 import { UserService } from './user.service';
 export declare class UserController {
     private readonly userService;
@@ -31,12 +32,12 @@ export declare class UserController {
     }>;
     toggleFavoutite(movieId: string, userId: string): Promise<void>;
     getAll(searchTerm?: string): Promise<{
+        name: string;
         id: string;
         createdAt: Date;
         updatedAt: Date;
         email: string;
         password: string;
-        name: string;
         avatarPath: string;
         role: import(".prisma/client").$Enums.UserRole;
         isHasPremium: boolean;
@@ -95,6 +96,17 @@ export declare class UserController {
             userId: string | null;
         }[];
     } & {
+        id: string;
+        createdAt: Date;
+        updatedAt: Date;
+        email: string;
+        password: string;
+        name: string;
+        avatarPath: string;
+        role: import(".prisma/client").$Enums.UserRole;
+        isHasPremium: boolean;
+    }>;
+    update(id: string, dto: UpdateUserDto): Promise<{
         id: string;
         createdAt: Date;
         updatedAt: Date;

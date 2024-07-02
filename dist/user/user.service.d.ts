@@ -71,12 +71,12 @@ export declare class UserService {
     }>;
     toggleFavoutite(movieId: string, userId: string): Promise<void>;
     getAll(searchTerm?: string): Promise<{
+        name: string;
         id: string;
         createdAt: Date;
         updatedAt: Date;
         email: string;
         password: string;
-        name: string;
         avatarPath: string;
         role: import(".prisma/client").$Enums.UserRole;
         isHasPremium: boolean;

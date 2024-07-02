@@ -7,10 +7,14 @@ import {
 	NotFoundException,
 	Param,
 	Post,
-	Query
+	Put,
+	Query,
+	UsePipes,
+	ValidationPipe
 } from '@nestjs/common';
 import { Auth } from 'src/auth/decorators/auth.decorator';
 import { CurrentUser } from './decorators/user.decorator';
+import { UpdateUserDto } from './dto/update-user.dto';
 import { UserService } from './user.service';
 
 @Controller('users')
@@ -44,6 +48,15 @@ export class UserController {
 	@Auth('admin')
 	async getById(@Param('id') id: string) {
 		return this.userService.getById(id);
+	}
+
+	@UsePipes(new ValidationPipe())
+	@Put(':id')
+	@Auth('admin')
+	async update(@Param('id') id: string, @Body() dto: UpdateUserDto) {
+		const updateUser = await this.userService.update(id, dto);
+		if (!updateUser) throw new NotFoundException('Пользователь не найден');
+		return updateUser;
 	}
 
 	@Delete(':id')
