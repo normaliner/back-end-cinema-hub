@@ -2,7 +2,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from 'src/prisma.service';
 import { generateSlug } from 'src/utils/generate-slug';
 import { UpdateGenreDto } from './dto/update-genre.dto';
-import { returnGenreObject } from './return-genre.dto';
+import { returnGenreObject } from './return-genre.object';
 
 @Injectable()
 export class GenreService {
