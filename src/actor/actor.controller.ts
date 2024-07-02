@@ -3,6 +3,7 @@ import {
 	Controller,
 	Delete,
 	Get,
+	HttpCode,
 	NotFoundException,
 	Param,
 	Post,
@@ -38,6 +39,7 @@ export class ActorController {
 
 	@UsePipes(new ValidationPipe())
 	@Post()
+	@HttpCode(200)
 	@Auth('admin')
 	async create() {
 		return this.actorService.create();
@@ -45,6 +47,7 @@ export class ActorController {
 
 	@UsePipes(new ValidationPipe())
 	@Put(':id')
+	@HttpCode(200)
 	@Auth('admin')
 	async update(@Param('id') id: string, @Body() dto: UpdateActorDto) {
 		const updateActor = await this.actorService.update(id, dto);
