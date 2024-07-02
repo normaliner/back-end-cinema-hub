@@ -1,8 +1,8 @@
 {
   "name": "back-end-cinema-hub",
   "version": "0.0.1",
-  "description": "",
-  "author": "",
+  "description": "Cinema hub project",
+  "author": "normaliner",
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
