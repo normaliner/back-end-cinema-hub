@@ -1,7 +1,85 @@
-import { Controller } from '@nestjs/common';
+import {
+	Body,
+	Controller,
+	Delete,
+	Get,
+	HttpCode,
+	NotFoundException,
+	Param,
+	Post,
+	Put,
+	Query,
+	UsePipes,
+	ValidationPipe
+} from '@nestjs/common';
+import { Auth } from 'src/auth/decorators/auth.decorator';
+import { UpdateMovieDto } from 'src/movie/dto/update-movie.dto';
 import { MovieService } from './movie.service';
 
-@Controller('movie')
+@Controller('movies')
 export class MovieController {
-  constructor(private readonly movieService: MovieService) {}
+	constructor(private readonly movieService: MovieService) {}
+
+	@Get()
+	async getAll(@Query('searchTerm') searchTerm?: string) {
+		return this.movieService.getAll(searchTerm);
+	}
+
+	@Get('by-slug/:slug')
+	async getBySlug(@Param('slug') slug: string) {
+		return this.movieService.getBySlug(slug);
+	}
+
+	@Get('most-popular')
+	async getMostPopular() {
+		return this.movieService.getMostPopular();
+	}
+
+	@Get('by-actor/:id')
+	@HttpCode(200)
+	async getByActor(@Param('id') id: string) {
+		return this.movieService.getByActor(id);
+	}
+
+	@Get('by-genres')
+	@HttpCode(200)
+	async getByGenres(@Body('genresIds') genresIds: string[]) {
+		return this.movieService.getByGenres(genresIds);
+	}
+  
+	@Put('update-count-views')
+	async updateCountViews(@Body('slug') slug: string) {
+		return this.movieService.updateCountViews(slug);
+	}
+	/* Запросы для админа */
+
+	@Get('by-id/:id')
+	@Auth('admin')
+	async getById(@Param('id') id: string) {
+		return this.movieService.getById(id);
+	}
+
+	@UsePipes(new ValidationPipe())
+	@Post()
+	@Auth('admin')
+	async create() {
+		return this.movieService.create();
+	}
+
+	@UsePipes(new ValidationPipe())
+	@Put(':id')
+	@Auth('admin')
+	async update(@Param('id') id: string, @Body() dto: UpdateMovieDto) {
+		const updateMovie = await this.movieService.update(id, dto);
+		if (!updateMovie) throw new NotFoundException('Фильм не найден');
+		return updateMovie;
+	}
+
+	@Delete(':id')
+	@Auth('admin')
+	async delete(@Param('id') id: string) {
+		const deleteMovie = await this.movieService.delete(id);
+		if (!deleteMovie) throw new NotFoundException('Фильм не найден');
+		return deleteMovie;
+	}
 }
