@@ -20,7 +20,7 @@ export class ReviewController {
 	constructor(private readonly reviewService: ReviewService) {}
 
 	@UsePipes(new ValidationPipe())
-	@Post('leave/:movie')
+	@Post('leave/:movieId')
 	@HttpCode(200)
 	@Auth()
 	async create(

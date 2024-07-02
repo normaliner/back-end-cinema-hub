@@ -17,12 +17,13 @@ const review_module_1 = require("./review/review.module");
 const movie_module_1 = require("./movie/movie.module");
 const file_module_1 = require("./file/file.module");
 const statistics_module_1 = require("./statistics/statistics.module");
+const payment_module_1 = require("./payment/payment.module");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
 exports.AppModule = AppModule = __decorate([
     (0, common_1.Module)({
-        imports: [config_1.ConfigModule.forRoot(), auth_module_1.AuthModule, user_module_1.UserModule, genre_module_1.GenreModule, actor_module_1.ActorModule, review_module_1.ReviewModule, movie_module_1.MovieModule, file_module_1.FileModule, statistics_module_1.StatisticsModule]
+        imports: [config_1.ConfigModule.forRoot(), auth_module_1.AuthModule, user_module_1.UserModule, genre_module_1.GenreModule, actor_module_1.ActorModule, review_module_1.ReviewModule, movie_module_1.MovieModule, file_module_1.FileModule, statistics_module_1.StatisticsModule, payment_module_1.PaymentModule]
     })
 ], AppModule);
 //# sourceMappingURL=app.module.js.map

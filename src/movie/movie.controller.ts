@@ -41,12 +41,12 @@ export class MovieController {
 		return this.movieService.getByActor(id);
 	}
 
-	@Get('by-genres')
+	@Post('by-genres')
 	@HttpCode(200)
 	async getByGenres(@Body('genresIds') genresIds: string[]) {
 		return this.movieService.getByGenres(genresIds);
 	}
-  
+
 	@Put('update-count-views')
 	async updateCountViews(@Body('slug') slug: string) {
 		return this.movieService.updateCountViews(slug);
