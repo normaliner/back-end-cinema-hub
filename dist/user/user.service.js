@@ -64,7 +64,7 @@ let UserService = class UserService {
     }
     async getAll(searchTerm) {
         if (searchTerm)
-            this.search(searchTerm);
+            return this.search(searchTerm);
         return this.prisma.user.findMany({
             select: return_user_object_1.returnUserObject,
             orderBy: {
