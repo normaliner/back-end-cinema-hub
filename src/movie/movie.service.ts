@@ -8,7 +8,7 @@ import { returnMovieObject } from './return-movie.object';
 export class MovieService {
 	constructor(private prisma: PrismaService) {}
 	async getAll(searchTerm?: string) {
-		if (searchTerm) this.search(searchTerm);
+		if (searchTerm) return this.search(searchTerm);
 		return this.prisma.movie.findMany({
 			select: returnMovieObject,
 			orderBy: {

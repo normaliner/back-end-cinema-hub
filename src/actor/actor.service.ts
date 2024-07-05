@@ -8,7 +8,7 @@ import { returnActorObject } from './return-actor.object';
 export class ActorService {
 	constructor(private prisma: PrismaService) {}
 	async getAll(searchTerm?: string) {
-		if (searchTerm) this.search(searchTerm);
+		if (searchTerm) return this.search(searchTerm);
 		return this.prisma.actor.findMany({
 			select: returnActorObject,
 			orderBy: {

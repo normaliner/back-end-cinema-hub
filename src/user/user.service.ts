@@ -58,7 +58,7 @@ export class UserService {
 	}
 	/* Запросы для админа */
 	async getAll(searchTerm?: string) {
-		if (searchTerm) this.search(searchTerm);
+		if (searchTerm) return this.search(searchTerm);
 
 		return this.prisma.user.findMany({
 			select: returnUserObject,
