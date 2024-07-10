@@ -44,7 +44,7 @@ export class MovieService {
 	async getMostPopular() {
 		return this.prisma.movie.findMany({
 			orderBy: {
-				createdAt: 'desc'
+				views: 'desc'
 			},
 			include: {
 				actors: true,
@@ -81,15 +81,20 @@ export class MovieService {
 	}
 
 	async updateCountViews(slug: string) {
+		const movie = await this.prisma.movie.findUnique({
+			where: { slug },
+			select: { views: true }
+		});
+
+		if (!movie) {
+			throw new NotFoundException('Фильм не найден');
+		}
+
+		const newViewsCount = Math.max(0, movie.views + 1);
+
 		return this.prisma.movie.update({
-			where: {
-				slug
-			},
-			data: {
-				views: {
-					increment: 1
-				}
-			}
+			where: { slug },
+			data: { views: newViewsCount }
 		});
 	}
 	/* Запросы для админа*/

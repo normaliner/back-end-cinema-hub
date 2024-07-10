@@ -50,7 +50,7 @@ export class UserService {
 			data: {
 				favourites: {
 					set: isExists
-						? user.favourites.filter(movie => movieId === movie.id)
+						? user.favourites.filter(movie => movieId !== movie.id)
 						: [...user.favourites, { id: movieId }]
 				}
 			}
@@ -72,11 +72,13 @@ export class UserService {
 			where: {
 				OR: [
 					{
-						name: {
+						email: {
 							contains: searchTerm,
 							mode: 'insensitive'
-						},
-						email: {
+						}
+					},
+					{
+						name: {
 							contains: searchTerm,
 							mode: 'insensitive'
 						}

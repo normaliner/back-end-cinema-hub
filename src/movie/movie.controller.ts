@@ -43,8 +43,8 @@ export class MovieController {
 
 	@Post('by-genres')
 	@HttpCode(200)
-	async getByGenres(@Body('genresIds') genresIds: string[]) {
-		return this.movieService.getByGenres(genresIds);
+	async getByGenres(@Body('genreIds') genreIds: string[]) {
+		return this.movieService.getByGenres(genreIds);
 	}
 
 	@Put('update-count-views')

@@ -7,6 +7,7 @@ exports.returnUserObject = {
     name: true,
     email: true,
     role: true,
-    password: true
+    password: true,
+    avatarPath: true
 };
 //# sourceMappingURL=return-user.object.js.map

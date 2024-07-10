@@ -8,10 +8,5 @@ export const returnReviewObject: Prisma.ReviewSelect = {
 	rating: true,
 	user: {
 		select: returnUserObject
-	},
-	movie: {
-		select: {
-			id: true
-		}
 	}
 };
